@@ -107,6 +107,27 @@ namespace AspIT.BoardManagement.Entities
         {
             UserCredentials = userCredentials;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the Person class.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <param name="firstName">The person's firstname.</param>
+        /// <param name="lastName">The person's lastname.</param>
+        /// <param name="birthDate">The person's birthdate.</param>
+        /// <param name="address">The person's address.</param>
+        /// <param name="city">The city of the person.</param>
+        /// <param name="region">The region of the city.</param>
+        /// <param name="postalCode">The postal code of the city.</param>
+        /// <param name="country">The country.</param>
+        /// <param name="contactInfo">The person's contact informations.</param>
+        /// <param name="userCredentials">The person's user credentials.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when firstname, or postalCode is greater than 10. Thrown when lastName is greater than 20. Thrown when city, region, or country is greater than 15. Thrown when address is greater than 60</exception>
+        /// <exception cref="ArgumentException">Thrown when firstName or lastname, address, city, region, postalCode, or country is empty, null, numbers, or has special characters</exception>
+        public Person(int id, string firstName, string lastName, DateTime birthDate, string address, string city, string region, string postalCode, string country, ContactInfo contactInfo, UserCredentials userCredentials) : this(firstName, lastName, birthDate, address, city, region, postalCode, country, contactInfo, userCredentials)
+        {
+            Id = id;
+        }
         #endregion
 
         #region Properties
@@ -126,7 +147,7 @@ namespace AspIT.BoardManagement.Entities
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException(errorMessage, nameof(FirstName));
                 }
             }
         }
@@ -147,7 +168,7 @@ namespace AspIT.BoardManagement.Entities
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException(errorMessage, nameof(LastName));
                 }
             }
         }
@@ -186,7 +207,7 @@ namespace AspIT.BoardManagement.Entities
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException(errorMessage, nameof(Address));
                 }
             }
         }
@@ -207,7 +228,7 @@ namespace AspIT.BoardManagement.Entities
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException(errorMessage, nameof(City));
                 }
             }
         }
@@ -230,7 +251,7 @@ namespace AspIT.BoardManagement.Entities
                     }
                     else
                     {
-                        throw new ArgumentException();
+                        throw new ArgumentException(errorMessage, nameof(Region));
                     }
                 }
             }
@@ -252,7 +273,7 @@ namespace AspIT.BoardManagement.Entities
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException(errorMessage, nameof(PostalCode));
                 }
             }
         }
@@ -273,7 +294,7 @@ namespace AspIT.BoardManagement.Entities
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException(errorMessage, nameof(Country));
                 }
             }
         }
@@ -303,6 +324,7 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A boolean telling whether it is valid or not, and a string error message</returns>
         public static (bool, string) IsValidName(string name)
         {
+            // TODO: Change most of the validations to regex
             if(string.IsNullOrEmpty(name))
             {
                 return (false, "Name can't be null or empty.");
