@@ -51,6 +51,7 @@
     <Compile Include="Summary.cs" />
     <Compile Include="VotableAgendaPoint.cs" />
     <Compile Include="Vote.cs" />
+    <Compile Include="VoteKind.cs" />
     <Compile Include="VoteResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
