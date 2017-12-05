@@ -13,6 +13,6 @@ namespace AspIT.BoardManagement.Entities
     /// </summary>
     public interface IPersistable
     {
-        int Id { get; set; }
+        int Id { get; }
     }
 }

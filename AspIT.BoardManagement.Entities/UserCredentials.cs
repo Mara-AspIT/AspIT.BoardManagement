@@ -11,7 +11,7 @@ namespace AspIT.BoardManagement.Entities
 {
     public class UserCredentials : IPersistable
     {
-        private int id;
+        private readonly int id;
         private string username;
         private string password;
 
@@ -23,7 +23,7 @@ namespace AspIT.BoardManagement.Entities
 
         public UserCredentials(int id, string username, string password) : this(username, password)
         {
-            Id = id;
+            this.id = id;
         }
 
         /// <summary>
@@ -32,7 +32,6 @@ namespace AspIT.BoardManagement.Entities
         public int Id
         {
             get { return id; }
-            set { id = value; }
         }
         /// <summary>
         /// the username for the user
