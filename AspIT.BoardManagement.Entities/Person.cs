@@ -14,7 +14,7 @@ namespace AspIT.BoardManagement.Entities
     /// <summary>
     /// Represents a person
     /// </summary>
-    public class Person
+    public class Person : IPersistable
     {
         #region Fields
         /// <summary>
@@ -259,9 +259,9 @@ namespace AspIT.BoardManagement.Entities
         public ContactInfo ContactInfo { get => contactInfo; set => contactInfo = value; }
 
         /// <summary>
-        /// Gets or sets the ID of the person
+        /// Gets the ID of the person
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; }
 
         #endregion
 
