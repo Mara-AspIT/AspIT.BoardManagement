@@ -53,21 +53,25 @@ namespace AspIT.BoardManagement.Entities
         /// The contact info of the person
         /// </summary>
         protected ContactInfo contactInfo;
+        /// <summary>
+        /// The user credentials.
+        /// </summary>
+        protected UserCredentials userCredentials;
         #endregion
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of this class
+        /// Initializes a new instance of the Person class
         /// </summary>
-        /// <param name="firstName">The person's firstname</param>
-        /// <param name="lastName">The person's lastname</param>
-        /// <param name="birthDate">The person's birthdate</param>
-        /// <param name="address">The person's address</param>
-        /// <param name="city">The city of the person</param>
-        /// <param name="region">The region of the city</param>
-        /// <param name="postalCode">The postal code of the city</param>
-        /// <param name="country">The country</param>
-        /// <param name="contactInfo">The person's contact informations</param>
+        /// <param name="firstName">The person's firstname.</param>
+        /// <param name="lastName">The person's lastname.</param>
+        /// <param name="birthDate">The person's birthdate.</param>
+        /// <param name="address">The person's address.</param>
+        /// <param name="city">The city of the person.</param>
+        /// <param name="region">The region of the city.</param>
+        /// <param name="postalCode">The postal code of the city.</param>
+        /// <param name="country">The country.</param>
+        /// <param name="contactInfo">The person's contact informations.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when firstname, or postalCode is greater than 10. Thrown when lastName is greater than 20. Thrown when city, region, or country is greater than 15. Thrown when address is greater than 60</exception>
         /// <exception cref="ArgumentException">Thrown when firstName or lastname, address, city, region, postalCode, or country is empty, null, numbers, or has special characters</exception>
         public Person(string firstName, string lastName, DateTime birthDate, string address, string city, string region, string postalCode, string country, ContactInfo contactInfo)
@@ -81,6 +85,27 @@ namespace AspIT.BoardManagement.Entities
             PostalCode = postalCode;
             Country = country;
             ContactInfo = contactInfo;
+        }
+
+
+        /// <summary>
+        /// Initializes a new instance of the Person class.
+        /// </summary>
+        /// <param name="firstName">The person's firstname.</param>
+        /// <param name="lastName">The person's lastname.</param>
+        /// <param name="birthDate">The person's birthdate.</param>
+        /// <param name="address">The person's address.</param>
+        /// <param name="city">The city of the person.</param>
+        /// <param name="region">The region of the city.</param>
+        /// <param name="postalCode">The postal code of the city.</param>
+        /// <param name="country">The country.</param>
+        /// <param name="contactInfo">The person's contact informations.</param>
+        /// <param name="userCredentials">The person's user credentials.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when firstname, or postalCode is greater than 10. Thrown when lastName is greater than 20. Thrown when city, region, or country is greater than 15. Thrown when address is greater than 60</exception>
+        /// <exception cref="ArgumentException">Thrown when firstName or lastname, address, city, region, postalCode, or country is empty, null, numbers, or has special characters</exception>
+        public Person(string firstName, string lastName, DateTime birthDate, string address, string city, string region, string postalCode, string country, ContactInfo contactInfo, UserCredentials userCredentials) : this(firstName, lastName, birthDate, address, city, region, postalCode, country, contactInfo)
+        {
+            UserCredentials = userCredentials;
         }
         #endregion
 
@@ -257,6 +282,11 @@ namespace AspIT.BoardManagement.Entities
         /// Gets or sets the contact info of the person
         /// </summary>
         public ContactInfo ContactInfo { get => contactInfo; set => contactInfo = value; }
+
+        /// <summary>
+        /// Gets or sets the user credentials.
+        /// </summary>
+        public UserCredentials UserCredentials { get => userCredentials; set => userCredentials = value; }
 
         /// <summary>
         /// Gets the ID of the person
