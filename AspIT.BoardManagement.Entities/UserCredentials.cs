@@ -1,11 +1,8 @@
-﻿/**************************************************************************************************
-*  Author: Emil Georgi (emil376g@edu.campusvejle.dk), github: https://github.com/emil376g/        *
-*  Solution: .NET version: 4.7.1, C# version: 7.1                                                 *
-*  Visual Studio version: Visual Studio Enterprise 2017, version 15.4.5                           *
-*  Repository: https://github.com/Mara-AspIT/AspIT.Bms.git                                        *
-**************************************************************************************************/
-
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AspIT.BoardManagement.Entities
 {
@@ -17,8 +14,8 @@ namespace AspIT.BoardManagement.Entities
 
         public UserCredentials(string username, string password)
         {
-            Password = password;
             Username = username;
+            Password = password;
         }
 
         public UserCredentials(int id, string username, string password) : this(username, password)
@@ -26,11 +23,36 @@ namespace AspIT.BoardManagement.Entities
             Id = id;
         }
 
+        /// <summary>
+        /// The id for the database
+        /// </summary>
         public int Id
         {
             get { return id; }
             set { id = value; }
         }
+        /// <summary>
+        /// the username for the user
+        /// </summary>
+        public string Username
+        {
+            get { return username; }
+            set
+            {
+
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("it can't be null");
+                }
+                else
+                {
+                    username = value;
+                }
+            }
+        }
+        /// <summary>
+        /// the password for the user
+        /// </summary>
         public string Password
         {
             get { return password; }
@@ -38,26 +60,11 @@ namespace AspIT.BoardManagement.Entities
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("it can't be null or whitespace");
+                    throw new ArgumentException("it can't be null");
                 }
                 else
                 {
                     password = value;
-                }
-            }
-        }
-        public string Username
-        {
-            get { return username; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("it can't be null or whitespace");
-                }
-                else
-                {
-                    username = value;
                 }
             }
         }
