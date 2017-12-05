@@ -76,6 +76,7 @@ namespace AspIT.BoardManagement.Entities
         /// <exception cref="ArgumentException">Thrown when firstName or lastname, address, city, region, postalCode, or country is empty, null, numbers, or has special characters</exception>
         public Person(string firstName, string lastName, DateTime birthDate, string address, string city, string region, string postalCode, string country, ContactInfo contactInfo)
         {
+            Id = 0;
             FirstName = firstName;
             LastName = lastName;
             BirthDate = birthDate;
