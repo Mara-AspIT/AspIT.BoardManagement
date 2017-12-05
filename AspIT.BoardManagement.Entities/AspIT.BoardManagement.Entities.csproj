@@ -50,6 +50,7 @@
     <Compile Include="Secretary.cs" />
     <Compile Include="Summary.cs" />
     <Compile Include="VotableAgendaPoint.cs" />
+    <Compile Include="VoteResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
