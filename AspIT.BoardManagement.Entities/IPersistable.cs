@@ -8,6 +8,9 @@
 
 namespace AspIT.BoardManagement.Entities
 {
+    /// <summary>
+    /// Its for the things there are going into the database
+    /// </summary>
     public interface IPersistable
     {
         int Id { get; set; }
