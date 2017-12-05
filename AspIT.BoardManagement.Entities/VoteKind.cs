@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace AspIT.BoardManagement.Entities
 {
+    /// <summary>The kind of vote</summary>
     public enum VoteKind
     {
     }
