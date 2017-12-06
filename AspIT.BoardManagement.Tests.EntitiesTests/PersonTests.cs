@@ -149,6 +149,28 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
             // Assert
             Assert.AreNotEqual(p1, p2);
         }
+
+        /// <summary>
+        /// Tests the IsValidName method. Passes if an <see cref="ArgumentException"/> is thrown.
+        /// <para>Reason for using the firstname and lastname for testing, is because they call the IsValidName method for validation</para>
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidName()
+        {
+            // Arrange
+            string firstName = "John8";
+            string lastName = "Smith";
+            DateTime birthDate = DateTime.Now;
+            string address = "21 jump street";
+            string city = "California";
+            string region = "Somewhere";
+            string postalCode = "9290";
+            string country = "Vandland";
+            ContactInfo contactInfo = new ContactInfo("johnsmith@lawsi.chill", "99999999");
+
+            // Actsert
+            Assert.ThrowsException<ArgumentException>(() => new Person(firstName, lastName, birthDate, address, city, region, postalCode, country, contactInfo));
+        }
         #endregion
     }
 }
