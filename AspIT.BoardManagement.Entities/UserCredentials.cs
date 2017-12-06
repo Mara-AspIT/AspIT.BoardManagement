@@ -58,14 +58,18 @@ namespace AspIT.BoardManagement.Entities
             get { return username; }
             set
             {
-                (bool Isvalid, string errorMsg) = IsValidUsername(value);
-                if (Isvalid)
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    value = username;
+                    throw new ArgumentNullException("it can't be null");
+                }
+                (bool Isvalid, string errorMsg) = IsValidUsername(value);
+                if (!Isvalid)
+                {
+                    throw new ArgumentException(errorMsg);
                 }
                 else
                 {
-                    throw new ArgumentException(errorMsg);
+                    username = value;
                 }
             }
         }
@@ -77,14 +81,18 @@ namespace AspIT.BoardManagement.Entities
             get { return password; }
             set
             {
-                (bool Isvalid, string errorMsg) = IsValidPassword(value);
-                if (Isvalid)
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    value = password;
+                    throw new ArgumentNullException("it can't be null");
+                }
+                (bool Isvalid, string errorMsg) = IsValidPassword(value);
+                if (!Isvalid)
+                {
+                    throw new ArgumentException(errorMsg);
                 }
                 else
                 {
-                    throw new ArgumentException(errorMsg);
+                    password = value;
                 }
             }
         }

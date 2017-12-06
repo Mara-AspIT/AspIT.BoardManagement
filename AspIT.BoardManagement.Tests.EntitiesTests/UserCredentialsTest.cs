@@ -8,19 +8,19 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
     public class UserCredentialsTest
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void ThrowExceptionIfUsernameIsNullOrBlank()
         {
             UserCredentials credentials = new UserCredentials("", "");
-            Assert.ThrowsException<ArgumentException>(() => new UserCredentials("", ""));
+            Assert.ThrowsException<ArgumentNullException>(() => new UserCredentials("", ""));
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void ThrowExceptionIfPasswordIsNullOrBlank()
         {
             UserCredentials credentials = new UserCredentials("", "");
-            Assert.ThrowsException<ArgumentException>(() => new UserCredentials("", ""));
+            Assert.ThrowsException<ArgumentNullException>(() => new UserCredentials("", ""));
         }
     }
 }
