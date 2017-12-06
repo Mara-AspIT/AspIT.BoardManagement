@@ -24,7 +24,7 @@ namespace AspIT.BoardManagement.Entities
         public BoardMeeting(Agenda agenda)
         {
             Agenda = agenda;
-        ¨}
+        }
         /// <summary>
         /// ment to create a boardmeeting forexample for the database, with id
         /// </summary>
