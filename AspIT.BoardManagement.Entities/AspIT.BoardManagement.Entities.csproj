@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Agenda.cs" />
     <Compile Include="AgendaPoint.cs" />
+    <Compile Include="BoardMeeting.cs" />
     <Compile Include="BoardMember.cs" />
     <Compile Include="Chairman.cs" />
     <Compile Include="ContactInfo.cs" />
