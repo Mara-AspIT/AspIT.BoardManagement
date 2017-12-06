@@ -11,10 +11,11 @@ namespace AspIT.BoardManagement.Entities
     /// <summary>
     /// Represents a board member.
     /// </summary>
-    public abstract class BoardMember : Person
+    public class BoardMember : Person
     {
+        #region Constructors
         /// <summary>
-        /// Initializes a new instance of the BoardMember class
+        /// Initializes a new instance of the <see cref="BoardMember"/> class
         /// </summary>
         /// <param name="firstName">The person's firstname.</param>
         /// <param name="lastName">The person's lastname.</param>
@@ -25,14 +26,14 @@ namespace AspIT.BoardManagement.Entities
         /// <param name="postalCode">The postal code of the city.</param>
         /// <param name="country">The country.</param>
         /// <param name="contactInfo">The person's contact informations.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when firstname, or postalCode is greater than 10. Thrown when lastName is greater than 20. Thrown when city, region, or country is greater than 15. Thrown when address is greater than 60</exception>
         /// <exception cref="ArgumentException">Thrown when firstName or lastname, address, city, region, postalCode, or country is empty, null, numbers, or has special characters</exception>
         public BoardMember(string firstName, string lastName, DateTime birthDate, string address, string city, string region, string postalCode, string country, ContactInfo contactInfo) : base(firstName, lastName, birthDate, address, city, region, postalCode, country, contactInfo)
         {
 
         }
+        #endregion
 
-
+        #region Methods
         /// <summary>
         /// Casts a vote.
         /// </summary>
@@ -42,5 +43,6 @@ namespace AspIT.BoardManagement.Entities
         {
 
         }
+        #endregion
     }
 }

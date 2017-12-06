@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace AspIT.BoardManagement.Entities
 {
-    public class UserCredentials : IPersistable
+    public class UserCredentials : IPersistable, IEquatable<UserCredentials>
     {
         #region Fields
         private readonly int id;

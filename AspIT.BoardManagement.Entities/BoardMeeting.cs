@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AspIT.BoardManagement.Entities
 {
-    public class BoardMeeting : IPersistable
+    public class BoardMeeting : IPersistable, IEquatable<BoardMeeting>
     {
         #region fields
         private readonly int id;
