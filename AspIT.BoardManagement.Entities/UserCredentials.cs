@@ -11,21 +11,34 @@ namespace AspIT.BoardManagement.Entities
 {
     public class UserCredentials : IPersistable
     {
+        #region Fields
         private readonly int id;
         private string username;
         private string password;
-
+        #endregion
+        #region constructors
+        /// <summary>
+        /// A new userlogin
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
         public UserCredentials(string username, string password)
         {
             Username = username;
             Password = password;
         }
-
+        /// <summary>
+        /// a new user login with an id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
         public UserCredentials(int id, string username, string password) : this(username, password)
         {
             this.id = id;
         }
-
+        #endregion
+        #region Props
         /// <summary>
         /// The id for the database
         /// </summary>
@@ -70,5 +83,6 @@ namespace AspIT.BoardManagement.Entities
                 }
             }
         }
+        #endregion
     }
 }
