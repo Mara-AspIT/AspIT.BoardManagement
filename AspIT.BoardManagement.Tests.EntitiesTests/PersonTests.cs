@@ -1,4 +1,10 @@
-﻿using System;
+﻿/**************************************************************************************************
+*  Author: Jesper Krag (jesp6763@edu.campusvejle.dk), github: https://github.com/jesp6763/        *
+*  Solution: .NET version: 4.7.1, C# version: 7.1                                                 *
+*  Visual Studio version: Visual Studio Enterprise 2017, version 15.4.5                           *
+*  Repository: https://github.com/Mara-AspIT/AspIT.BoardManagement                                *
+**************************************************************************************************/
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AspIT.BoardManagement.Entities;
 
@@ -7,6 +13,7 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
     [TestClass]
     public class PersonTests
     {
+        #region Constructor tests
         /// <summary>Tests that an object of <see cref="Person"/> reaches a valid state after initialization.</summary>
         [TestMethod]
         public void CorrectInitialization()
@@ -86,7 +93,9 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
             // Actsert
             Assert.ThrowsException<ArgumentException>(() => new Person(incorrectFirstName, correctLastName, correctBirthDate, correctAddress, correctCity, correctRegion, correctPostalCode, correctCountry, contactInfo));
         }
+        #endregion
 
+        #region Equatable tests
         /// <summary>
         /// Tests the equatable implementation. This will fail if the 2 <see cref="Person"/> objects are not equal
         /// </summary>
@@ -140,5 +149,6 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
             // Assert
             Assert.AreNotEqual(p1, p2);
         }
+        #endregion
     }
 }

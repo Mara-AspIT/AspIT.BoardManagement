@@ -13,8 +13,9 @@ namespace AspIT.BoardManagement.Entities
     /// </summary>
     public class BoardMember : Person
     {
+        #region Constructors
         /// <summary>
-        /// Initializes a new instance of the BoardMember class
+        /// Initializes a new instance of the <see cref="BoardMember"/> class
         /// </summary>
         /// <param name="firstName">The person's firstname.</param>
         /// <param name="lastName">The person's lastname.</param>
@@ -30,8 +31,9 @@ namespace AspIT.BoardManagement.Entities
         {
 
         }
+        #endregion
 
-
+        #region Methods
         /// <summary>
         /// Casts a vote.
         /// </summary>
@@ -41,5 +43,6 @@ namespace AspIT.BoardManagement.Entities
         {
 
         }
+        #endregion
     }
 }

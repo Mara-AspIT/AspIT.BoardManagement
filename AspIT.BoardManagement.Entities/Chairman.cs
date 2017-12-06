@@ -4,12 +4,7 @@
 *  Visual Studio version: Visual Studio Enterprise 2017, version 15.4.5                           *
 *  Repository: https://github.com/Mara-AspIT/AspIT.BoardManagement                                *
 **************************************************************************************************/
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AspIT.BoardManagement.Entities
 {
@@ -18,8 +13,9 @@ namespace AspIT.BoardManagement.Entities
     /// </summary>
     public class Chairman : BoardMember
     {
+        #region Constructors
         /// <summary>
-        /// Initializes a new instance of the Chairman class
+        /// Initializes a new instance of the <see cref="Chairman"/> class
         /// </summary>
         /// <param name="firstName">The person's firstname.</param>
         /// <param name="lastName">The person's lastname.</param>
@@ -33,9 +29,11 @@ namespace AspIT.BoardManagement.Entities
         /// <exception cref="ArgumentException">Thrown when firstName or lastname, address, city, region, postalCode, or country is empty, null, numbers, or has special characters</exception>
         public Chairman(string firstName, string lastName, DateTime birthDate, string address, string city, string region, string postalCode, string country, ContactInfo contactInfo) : base(firstName, lastName, birthDate, address, city, region, postalCode, country, contactInfo)
         {
-
+            
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Opens an agenda point
         /// </summary>
@@ -62,5 +60,6 @@ namespace AspIT.BoardManagement.Entities
         {
             // TODO: Start voting of agenda point.
         }
+        #endregion
     }
 }

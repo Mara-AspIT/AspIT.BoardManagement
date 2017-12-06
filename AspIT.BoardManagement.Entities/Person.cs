@@ -4,7 +4,6 @@
 *  Visual Studio version: Visual Studio Enterprise 2017, version 15.4.5                           *
 *  Repository: https://github.com/Mara-AspIT/AspIT.BoardManagement                                *
 **************************************************************************************************/
-
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
