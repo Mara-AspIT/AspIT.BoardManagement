@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using AspIT.BoardManagement.Entities;
 
 namespace AspIT.BoardManagement.Tests.EntitiesTests
 {
@@ -10,7 +11,8 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
 		public void TestMethod1()
 		{
 			//Arrange:
-
+			string s1 = "poopy";
+			
 			//Act:
 
 			//Assert:
