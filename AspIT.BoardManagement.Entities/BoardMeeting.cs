@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AspIT.BoardManagement.Entities
 {
-    public class BoardMeeting : IPersistable
+    public class BoardMeeting : IPersistable, IEquatable<BoardMeeting>
     {
         #region fields
         private readonly int id;
@@ -24,7 +24,7 @@ namespace AspIT.BoardManagement.Entities
         public BoardMeeting(Agenda agenda)
         {
             Agenda = agenda;
-        ¨}
+        }
         /// <summary>
         /// ment to create a boardmeeting forexample for the database, with id
         /// </summary>
