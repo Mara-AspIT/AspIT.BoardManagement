@@ -14,7 +14,7 @@ namespace AspIT.BoardManagement.Entities
     /// <summary>
     /// Represents a person
     /// </summary>
-    public class Person : IPersistable
+    public class Person : IPersistable, IEquatable<Person>
     {
         #region Fields
         /// <summary>
@@ -142,7 +142,7 @@ namespace AspIT.BoardManagement.Entities
             set
             {
                 (bool isValid, string errorMessage) = IsValidName(value);
-                if(isValid)
+                if (isValid)
                 {
                     firstName = value;
                 }
@@ -163,7 +163,7 @@ namespace AspIT.BoardManagement.Entities
             set
             {
                 (bool isValid, string errorMessage) = IsValidName(value);
-                if(isValid)
+                if (isValid)
                 {
                     lastName = value;
                 }
@@ -202,7 +202,7 @@ namespace AspIT.BoardManagement.Entities
             set
             {
                 (bool isValid, string errorMessage) = IsValidAddress(value);
-                if(isValid)
+                if (isValid)
                 {
                     address = value;
                 }
@@ -223,7 +223,7 @@ namespace AspIT.BoardManagement.Entities
             set
             {
                 (bool isValid, string errorMessage) = IsValidCity(value);
-                if(isValid)
+                if (isValid)
                 {
                     city = value;
                 }
@@ -243,10 +243,10 @@ namespace AspIT.BoardManagement.Entities
             get => region;
             set
             {
-                if(value != null)
+                if (value != null)
                 {
                     (bool isValid, string errorMessage) = IsValidRegion(value);
-                    if(isValid)
+                    if (isValid)
                     {
                         region = value;
                     }
@@ -268,7 +268,7 @@ namespace AspIT.BoardManagement.Entities
             set
             {
                 (bool isValid, string errorMessage) = IsValidPostalCode(value);
-                if(isValid)
+                if (isValid)
                 {
                     postalCode = value;
                 }
@@ -289,7 +289,7 @@ namespace AspIT.BoardManagement.Entities
             set
             {
                 (bool isValid, string errorMessage) = IsValidCountry(value);
-                if(isValid)
+                if (isValid)
                 {
                     country = value;
                 }
@@ -326,30 +326,30 @@ namespace AspIT.BoardManagement.Entities
         public static (bool, string) IsValidName(string name)
         {
             // TODO: Change most of the validations to regex
-            if(string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 return (false, "Name can't be null or empty.");
             }
 
-            if(name.Contains('-'))
+            if (name.Contains('-'))
             {
-                if(name.StartsWith("-") || name.EndsWith("-"))
+                if (name.StartsWith("-") || name.EndsWith("-"))
                 {
                     return (false, "The hyphen character is not allowed at the start or at the end of the name.");
                 }
 
-                if(!char.IsUpper(name[name.IndexOf('-') + 1]))
+                if (!char.IsUpper(name[name.IndexOf('-') + 1]))
                 {
                     return (false, "The name after the hyphen must start with a capital letter.");
                 }
             }
-            if(!char.IsUpper(name[0]))
+            if (!char.IsUpper(name[0]))
             {
                 return (false, "Name must start with capital letter.");
             }
 
             // Return false if there's a number in the string
-            if(name.All(character => char.IsNumber(character)))
+            if (name.All(character => char.IsNumber(character)))
             {
                 return (false, "Numbers is not allowed");
             }
@@ -364,12 +364,12 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A boolean telling whether it is valid or not, and a string error message</returns>
         public static (bool, string) IsValidAddress(string address)
         {
-            if(string.IsNullOrEmpty(address))
+            if (string.IsNullOrEmpty(address))
             {
                 return (false, "Address can't be null or empty.");
             }
 
-            if(!Regex.IsMatch(address, @"^[\sA-Za-z0-9-.]+$"))
+            if (!Regex.IsMatch(address, @"^[\sA-Za-z0-9-.]+$"))
             {
                 return (false, "Address may only contain letters, numbers, spaces and hyphens.");
             }
@@ -383,12 +383,12 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A boolean telling whether it is valid or not, and a string error message</returns>
         public static (bool, string) IsValidCity(string city)
         {
-            if(string.IsNullOrEmpty(city))
+            if (string.IsNullOrEmpty(city))
             {
                 return (false, "City can't be empty or null.");
             }
 
-            if(!Regex.IsMatch(city, "^[ A-Za-z]+$"))
+            if (!Regex.IsMatch(city, "^[ A-Za-z]+$"))
             {
                 return (false, "City may only contain spaces and letters.");
             }
@@ -402,7 +402,7 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A boolean telling whether it is valid or not, and a string error message</returns>
         public static (bool, string) IsValidRegion(string region)
         {
-            if(region != String.Empty && !Regex.IsMatch(region, @"^[ A-Za-z]+$"))
+            if (region != String.Empty && !Regex.IsMatch(region, @"^[ A-Za-z]+$"))
             {
                 return (false, "Region may only contain letters and spaces");
             }
@@ -417,12 +417,12 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A boolean telling whether it is valid or not, and a string error message</returns>
         public static (bool, string) IsValidPostalCode(string postalCode)
         {
-            if(string.IsNullOrEmpty(postalCode))
+            if (string.IsNullOrEmpty(postalCode))
             {
                 return (false, "Postal code can't be null or empty.");
             }
 
-            if(!Regex.IsMatch(postalCode, "^[ 0-9A-Z]+$"))
+            if (!Regex.IsMatch(postalCode, "^[ 0-9A-Z]+$"))
             {
                 return (false, "Postal code may only contain numbers, spaces and letters.");
             }
@@ -432,21 +432,61 @@ namespace AspIT.BoardManagement.Entities
         /// <summary>
         /// Checks the specified country to see if it is valid.
         /// </summary>
-        /// <param name="country">The country you want to validate</param>
-        /// <returns>A boolean telling whether it is valid or not, and a string error message</returns>
+        /// <param name="country">The country you want to validate.</param>
+        /// <returns>A <see cref="bool"/> telling whether it is valid or not, and a <see cref="string"/> error message.</returns>
         public static (bool, string) IsValidCountry(string country)
         {
-            if(string.IsNullOrEmpty(country))
+            if (string.IsNullOrEmpty(country))
             {
                 return (false, "Country can't be null or empty");
             }
 
-            if(!Regex.IsMatch(country, "^[ A-Za-z]+$"))
+            if (!Regex.IsMatch(country, "^[ A-Za-z]+$"))
             {
                 return (false, "Country may only contain letters and spaces.");
             }
             return (true, string.Empty);
         }
+
+        /// <summary>
+        /// Determines whether this <see cref="Person"/> instance is the same as the other <see cref="Person"/> instance, and have the same unique ID.
+        /// </summary>
+        /// <param name="other">The other <see cref="Person"/> to compare with.</param>
+        /// <returns>A <see cref="bool"/> that tells if both <see cref="Person"/> instances are equal, and have the same unique ID.</returns>
+        public bool Equals(Person other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Id == other.Id;
+        }
+
+        /// <summary>
+        /// Determines whether this <see cref="Person"/> instance is the same as the other <see cref="Person"/> instance.
+        /// </summary>
+        /// <param name="obj">The other <see cref="Person"/> to compare with.</param>
+        /// <returns>A <see cref="bool"/> that tells if both <see cref="Person"/> instances are equal, and are of same type.</returns>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof(Person)) return false;
+            return Equals((Person)obj);
+        }
+
+        /// <summary>
+        /// Calculates a hashcode for this <see cref="Person"/> object.
+        /// </summary>
+        /// <returns>A calculated hashcode.</returns>
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
+        /// <summary>
+        /// The current state of this <see cref="Person"/> object as a <see cref="string"/>.
+        /// </summary>
+        /// <returns>A <see cref="string"/> that shows the current state of this <see cref="Person"/> object.</returns>
+        public override string ToString() => $"{Id}: {FirstName}, {LastName}, {BirthDate.ToShortDateString()}, {Address}, {City}, {Region}, {PostalCode}, {Country}, {ContactInfo.Email}, {ContactInfo.PhoneNumber}, {UserCredentials.Username}, {UserCredentials.Password}";
         #endregion
     }
 }
