@@ -22,11 +22,12 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
             string country = "Vandland";
             ContactInfo contactInfo = new ContactInfo("johnsmith@lawsi.chill", "99999999");
             UserCredentials userCredentials = new UserCredentials("Username", "Password");
-            Person p1, p2;
+            Person p1, p2, p3;
 
             // Act
             p1 = new Person(firstName, lastName, birthDate, address, city, region, postalCode, country, contactInfo);
             p2 = new Person(firstName, lastName, birthDate, address, city, region, postalCode, country, contactInfo, userCredentials);
+            p3 = new Person(1, firstName, lastName, birthDate, address, city, region, postalCode, country, contactInfo, userCredentials);
 
             // Assert person 1
             Assert.AreEqual(firstName, p1.FirstName);
@@ -50,6 +51,19 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
             Assert.AreEqual(country, p2.Country);
             Assert.AreEqual(contactInfo, p2.ContactInfo);
             Assert.AreEqual(userCredentials, p2.UserCredentials);
+
+            // Assert person 3
+            Assert.AreEqual(1, p3.Id);
+            Assert.AreEqual(firstName, p3.FirstName);
+            Assert.AreEqual(lastName, p3.LastName);
+            Assert.AreEqual(birthDate, p3.BirthDate);
+            Assert.AreEqual(address, p3.Address);
+            Assert.AreEqual(city, p3.City);
+            Assert.AreEqual(region, p3.Region);
+            Assert.AreEqual(postalCode, p3.PostalCode);
+            Assert.AreEqual(country, p3.Country);
+            Assert.AreEqual(contactInfo, p3.ContactInfo);
+            Assert.AreEqual(userCredentials, p3.UserCredentials);
         }
 
         /// <summary>
