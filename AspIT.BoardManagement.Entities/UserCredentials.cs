@@ -6,6 +6,8 @@
 *********************************************************************************************/
 
 using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace AspIT.BoardManagement.Entities
 {
@@ -16,7 +18,8 @@ namespace AspIT.BoardManagement.Entities
         private string username;
         private string password;
         #endregion
-        #region constructors
+
+        #region Constructors
         /// <summary>
         /// A new userlogin
         /// </summary>
@@ -38,6 +41,7 @@ namespace AspIT.BoardManagement.Entities
             this.id = id;
         }
         #endregion
+
         #region Props
         /// <summary>
         /// The id for the database
@@ -54,14 +58,14 @@ namespace AspIT.BoardManagement.Entities
             get { return username; }
             set
             {
-
-                if (string.IsNullOrWhiteSpace(value))
+                (bool Isvalid, string errorMsg) = IsValidUsername(value);
+                if (Isvalid)
                 {
-                    throw new ArgumentException("it can't be null");
+                    value = username;
                 }
                 else
                 {
-                    username = value;
+                    throw new ArgumentException(errorMsg);
                 }
             }
         }
@@ -73,15 +77,64 @@ namespace AspIT.BoardManagement.Entities
             get { return password; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                (bool Isvalid, string errorMsg) = IsValidPassword(value);
+                if (Isvalid)
                 {
-                    throw new ArgumentException("it can't be null");
+                    value = password;
                 }
                 else
                 {
-                    password = value;
+                    throw new ArgumentException(errorMsg);
                 }
             }
+        }
+        #endregion
+
+        #region Methods
+        public virtual bool Equals(UserCredentials other)
+                    => other.id == id && ReferenceEquals(this, other);
+
+        public override bool Equals(object obj)
+           => Equals(obj as UserCredentials);
+
+        public override int GetHashCode()
+        {
+            int hashCode = -796035300;
+            hashCode = hashCode * -1521134295 + id.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(username);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(password);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Username);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Password);
+            return hashCode;
+        }
+        public override string ToString()
+    => $"{id}: {Username}, {Password}";
+
+        public static (bool, string) IsValidUsername(string Username)
+        {
+            if (string.IsNullOrEmpty(Username))
+            {
+                return (false, "username can't be null or empty");
+            }
+
+            if (!Regex.IsMatch(Username, "^[ A-Za-z]+$"))
+            {
+                return (false, "username may only contain letters and spaces.");
+            }
+            return (true, string.Empty);
+        }
+        public static (bool, string) IsValidPassword(string Password)
+        {
+            if (string.IsNullOrEmpty(Password))
+            {
+                return (false, "Password can't be null or empty");
+            }
+
+            if (!Regex.IsMatch(Password, "^[ A-Za-z]+$"))
+            {
+                return (false, "Password may only contain letters and spaces.");
+            }
+            return (true, string.Empty);
         }
         #endregion
     }
