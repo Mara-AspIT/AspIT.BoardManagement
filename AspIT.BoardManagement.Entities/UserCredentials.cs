@@ -58,10 +58,6 @@ namespace AspIT.BoardManagement.Entities
             get { return username; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentNullException("it can't be null");
-                }
                 (bool Isvalid, string errorMsg) = IsValidUsername(value);
                 if (!Isvalid)
                 {
@@ -81,10 +77,6 @@ namespace AspIT.BoardManagement.Entities
             get { return password; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentNullException("it can't be null");
-                }
                 (bool Isvalid, string errorMsg) = IsValidPassword(value);
                 if (!Isvalid)
                 {
@@ -100,8 +92,13 @@ namespace AspIT.BoardManagement.Entities
 
         #region Methods
         public virtual bool Equals(UserCredentials other)
-                    => other.id == id && ReferenceEquals(this, other);
-
+        {
+            if(other == null)
+            {
+                return false;
+            }
+            return other.id == id && ReferenceEquals(this, other);
+        }
         public override bool Equals(object obj)
            => Equals(obj as UserCredentials);
 
@@ -125,7 +122,7 @@ namespace AspIT.BoardManagement.Entities
                 return (false, "username can't be null or empty");
             }
 
-            if (!Regex.IsMatch(Username, "^[ A-Za-z]+$"))
+            if (!Regex.IsMatch(Username, "^[ A-Za-z0-9]+$"))
             {
                 return (false, "username may only contain letters and spaces.");
             }
@@ -138,7 +135,7 @@ namespace AspIT.BoardManagement.Entities
                 return (false, "Password can't be null or empty");
             }
 
-            if (!Regex.IsMatch(Password, "^[ A-Za-z]+$"))
+            if (!Regex.IsMatch(Password, "^[ A-Za-z0-9]+$"))
             {
                 return (false, "Password may only contain letters and spaces.");
             }

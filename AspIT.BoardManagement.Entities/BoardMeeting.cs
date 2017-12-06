@@ -51,7 +51,18 @@ namespace AspIT.BoardManagement.Entities
         public List<BoardMember> Members
         {
             get { return members; }
-            set { members = value; }
+            set
+            {
+                (bool valid, string errorMsg) = IsValidMember(value);
+                if (!valid)
+                {
+                    throw new ArgumentException(errorMsg);
+                }
+                else
+                {
+                    members = value;
+                }
+            }
         }
         #endregion
 
@@ -91,6 +102,15 @@ namespace AspIT.BoardManagement.Entities
         /// <returns></returns>
         public override string ToString()
     => $"{id}: {Agenda.ToString()}, {Members.ToString()}";
+
+        public static (bool, string) IsValidMember(List<BoardMember> members)
+        {
+            if (members.Count >= 3)
+            {
+                return (false, "it can't be less then 4");
+            }
+            return (true, string.Empty);
+        }
         #endregion
     }
 }
