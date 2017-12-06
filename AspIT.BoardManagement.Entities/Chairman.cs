@@ -30,7 +30,6 @@ namespace AspIT.BoardManagement.Entities
         /// <param name="postalCode">The postal code of the city.</param>
         /// <param name="country">The country.</param>
         /// <param name="contactInfo">The person's contact informations.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when firstname, or postalCode is greater than 10. Thrown when lastName is greater than 20. Thrown when city, region, or country is greater than 15. Thrown when address is greater than 60</exception>
         /// <exception cref="ArgumentException">Thrown when firstName or lastname, address, city, region, postalCode, or country is empty, null, numbers, or has special characters</exception>
         public Chairman(string firstName, string lastName, DateTime birthDate, string address, string city, string region, string postalCode, string country, ContactInfo contactInfo) : base(firstName, lastName, birthDate, address, city, region, postalCode, country, contactInfo)
         {
