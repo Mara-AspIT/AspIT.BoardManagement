@@ -55,7 +55,7 @@ namespace AspIT.BoardManagement.Entities
         /// <summary>
         /// Starts the voting of a agenda point.
         /// </summary>
-        /// <param name="votableAgendaPoint">The agenda to start voting.</param>
+        /// <param name="votableAgendaPoint">The agenda point to start voting on.</param>
         public void StartVote(VotableAgendaPoint votableAgendaPoint)
         {
             // TODO: Start voting of agenda point.

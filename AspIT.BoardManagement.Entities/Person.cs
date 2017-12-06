@@ -345,7 +345,7 @@ namespace AspIT.BoardManagement.Entities
             }
 
             // Return false if there's a number in the string
-            if (name.All(character => char.IsNumber(character)))
+            if (name.FirstOrDefault(char.IsNumber) != char.MinValue)
             {
                 return (false, "Numbers is not allowed");
             }
