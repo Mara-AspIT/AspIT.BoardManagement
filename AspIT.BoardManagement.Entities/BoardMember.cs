@@ -67,7 +67,19 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A calculated hashcode.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode();
+            const int prime = 397;
+            int hash = Id;
+            hash = (hash * prime) ^ (FirstName != null ? FirstName.GetHashCode() : 0);
+            hash = (hash * prime) ^ (LastName != null ? LastName.GetHashCode() : 0);
+            hash = (hash * prime) ^ (BirthDate != null ? BirthDate.GetHashCode() : 0);
+            hash = (hash * prime) ^ (Address != null ? Address.GetHashCode() : 0);
+            hash = (hash * prime) ^ (City != null ? City.GetHashCode() : 0);
+            hash = (hash * prime) ^ (Region != null ? Region.GetHashCode() : 0);
+            hash = (hash * prime) ^ (PostalCode != null ? PostalCode.GetHashCode() : 0);
+            hash = (hash * prime) ^ (Country != null ? Country.GetHashCode() : 0);
+            hash = (hash * prime) ^ (ContactInfo != null ? ContactInfo.GetHashCode() : 0);
+            hash = (hash * prime) ^ (UserCredentials != null ? UserCredentials.GetHashCode() : 0);
+            return hash;
         }
         #endregion
     }
