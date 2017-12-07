@@ -398,7 +398,7 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A boolean telling whether it is valid or not, and a string error message</returns>
         public static (bool, string) IsValidRegion(string region)
         {
-            if (region == String.Empty && !Regex.IsMatch(region, @"^[ A-Za-z]+$"))
+            if (region == String.Empty || !Regex.IsMatch(region, @"^[ A-Za-z]+$"))
             {
                 return (false, "Region may only contain letters and spaces");
             }
