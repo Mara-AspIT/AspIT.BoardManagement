@@ -15,5 +15,9 @@ namespace AspIT.BoardManagement.Entities
 {
     public class VotableAgendaPoint: AgendaPoint
     {
+        public VotableAgendaPoint() : base("", "")
+        {
+
+        }
     }
 }

@@ -12,7 +12,16 @@ using System.Threading.Tasks;
 
 namespace AspIT.BoardManagement.Entities
 {
+    /// <summary>The kind of vote</summary>
     public enum VoteKind
     {
+        /// <summary>The vote kind cast when in favor.</summary>
+        Yay,
+
+        /// <summary>The vote kind cast when not in favor.</summary>
+        Nay,
+
+        /// <summary>The vote kind cast when neither in favor or not in favor.</summary>
+        Blank
     }
 }
