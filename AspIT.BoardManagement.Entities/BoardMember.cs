@@ -11,23 +11,15 @@ namespace AspIT.BoardManagement.Entities
     /// <summary>
     /// Represents a board member.
     /// </summary>
-    public class BoardMember : Person
+    public class BoardMember : Person, IEquatable<BoardMember>
     {
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="BoardMember"/> class
         /// </summary>
-        /// <param name="firstName">The person's firstname.</param>
-        /// <param name="lastName">The person's lastname.</param>
-        /// <param name="birthDate">The person's birthdate.</param>
-        /// <param name="address">The person's address.</param>
-        /// <param name="city">The city of the person.</param>
-        /// <param name="region">The region of the city.</param>
-        /// <param name="postalCode">The postal code of the city.</param>
-        /// <param name="country">The country.</param>
-        /// <param name="contactInfo">The person's contact informations.</param>
+        /// <param name="person">The board member's person details.</param>
         /// <exception cref="ArgumentException">Thrown when firstName or lastname, address, city, region, postalCode, or country is empty, null, numbers, or has special characters</exception>
-        public BoardMember(string firstName, string lastName, DateTime birthDate, string address, string city, string region, string postalCode, string country, ContactInfo contactInfo) : base(firstName, lastName, birthDate, address, city, region, postalCode, country, contactInfo)
+        public BoardMember(Person person) : base(person.Id, person.FirstName, person.LastName, person.BirthDate, person.Address, person.City, person.Region, person.PostalCode, person.Country, person.ContactInfo, person.UserCredentials)
         {
 
         }
@@ -42,6 +34,40 @@ namespace AspIT.BoardManagement.Entities
         public void CastVote(Vote vote, VotableAgendaPoint votableAgendaPoint)
         {
 
+        }
+
+        /// <summary>
+        /// Determines whether this <see cref="BoardMember"/> instance is the same as the other <see cref="BoardMember"/> instance, and have the same unique ID.
+        /// </summary>
+        /// <param name="other">The other <see cref="BoardMember"/> to compare with.</param>
+        /// <returns>A <see cref="bool"/> that tells if both <see cref="BoardMember"/> instances are equal, and have the same unique ID.</returns>
+        public bool Equals(BoardMember other)
+        {
+            if(ReferenceEquals(null, other)) return false;
+            if(ReferenceEquals(this, other)) return true;
+            return Id == other.Id;
+        }
+
+        /// <summary>
+        /// Determines whether this <see cref="BoardMember"/> instance is the same as the other <see cref="BoardMember"/> instance.
+        /// </summary>
+        /// <param name="obj">The other <see cref="BoardMember"/> to compare with.</param>
+        /// <returns>A <see cref="bool"/> that tells if both <see cref="BoardMember"/> instances are equal, and are of same type.</returns>
+        public override bool Equals(object obj)
+        {
+            if(ReferenceEquals(null, obj)) return false;
+            if(ReferenceEquals(this, obj)) return true;
+            if(obj.GetType() != typeof(BoardMember)) return false;
+            return Equals((BoardMember)obj);
+        }
+
+        /// <summary>
+        /// Calculates a hashcode for this <see cref="BoardMember"/> object.
+        /// </summary>
+        /// <returns>A calculated hashcode.</returns>
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
         #endregion
     }
