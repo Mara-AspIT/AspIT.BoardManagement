@@ -259,8 +259,65 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
             // Assert
             Assert.AreEqual(expectedResult, result.isValid);
         }
+
+        /// <summary>
+        /// Tests the IsValidName validation method. Passes if it says the name is invalid because it is null or empty
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidNameIncorrect6()
+        {
+            // Arrange
+            const string name = "";
+            const bool expectedResult = false;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidName(name);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
         #endregion
 
-       
+        #region Address validation tests
+        /// <summary>
+        /// Tests the IsValidAddress validation method.
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidAddressCorrect()
+        {
+            // Arrange
+            const string address = "Saint street - 29.";
+            const bool expectedResult = true;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidAddress(address);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
+
+        /// <summary>
+        /// Tests the IsValidName validation method. Passes if it says the name is invalid because it doesn't match the regex
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidAddresseIncorrect1()
+        {
+            /* Regex \sA-Za-z0-9-. */
+
+            // Arrange
+            const string address = "$aint street - 29.";
+            const bool expectedResult = false;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidAddress(address);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
+        #endregion
+
     }
 }
