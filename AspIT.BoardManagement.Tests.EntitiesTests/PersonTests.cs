@@ -151,28 +151,116 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
         }
         #endregion
 
-        #region Validation tests
+        #region IsValidName validation tests
         /// <summary>
-        /// Tests the IsValidName method. Passes if an <see cref="ArgumentException"/> is thrown.
-        /// <para>Reason for using the firstname and lastname for testing, is because they call the IsValidName method for validation</para>
+        /// Tests the IsValidName validation method.
         /// </summary>
         [TestMethod]
-        public void TestIsValidName()
+        public void TestIsValidNameCorrect()
         {
             // Arrange
-            string firstName = "John8";
-            string lastName = "Smith";
-            DateTime birthDate = DateTime.Now;
-            string address = "21 jump street";
-            string city = "California";
-            string region = "Somewhere";
-            string postalCode = "9290";
-            string country = "Vandland";
-            ContactInfo contactInfo = new ContactInfo("johnsmith@lawsi.chill", "99999999");
+            const string name = "John Lee-Hoi";
+            const bool expectedResult = true;
+            (bool isValid, string errorMessage) result;
 
-            // Actsert
-            Assert.ThrowsException<ArgumentException>(() => new Person(firstName, lastName, birthDate, address, city, region, postalCode, country, contactInfo));
+            // Act
+            result = Person.IsValidName(name);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
+
+        /// <summary>
+        /// Tests the IsValidName validation method. Passes if it says the name is invalid because a hyphen is the start character
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidNameIncorrect1()
+        {
+            // Arrange
+            const string name = "-John Lee";
+            const bool expectedResult = false;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidName(name);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
+
+        /// <summary>
+        /// Tests the IsValidName validation method. Passes if it says the name is invalid because a hyphen is the end character
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidNameIncorrect2()
+        {
+            // Arrange
+            const string name = "John Lee-";
+            const bool expectedResult = false;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidName(name);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
+
+        /// <summary>
+        /// Tests the IsValidName validation method. Passes if it says the name is invalid because the character after the hyphen is not a capital letter
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidNameIncorrect3()
+        {
+            // Arrange
+            const string name = "John Lee-d";
+            const bool expectedResult = false;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidName(name);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
+
+        /// <summary>
+        /// Tests the IsValidName validation method. Passes if it says the name is invalid because it contains numbers
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidNameIncorrect4()
+        {
+            // Arrange
+            const string name = "John2 Lee-John";
+            const bool expectedResult = false;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidName(name);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
+
+        /// <summary>
+        /// Tests the IsValidName validation method. Passes if it says the name is invalid because it doesn't start with a capital letter
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidNameIncorrect5()
+        {
+            // Arrange
+            const string name = "john Lee-John";
+            const bool expectedResult = false;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidName(name);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
         }
         #endregion
+
+       
     }
 }
