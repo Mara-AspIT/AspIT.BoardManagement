@@ -375,7 +375,7 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
         }
 
         /// <summary>
-        /// Tests the IsValidCity validation method. Passes if it says the name is invalid because it doesn't match the regex
+        /// Tests the IsValidRegion validation method. Passes if it says the name is invalid because it doesn't match the regex
         /// </summary>
         [TestMethod]
         public void TestIsValidRegionIncorrect1()
@@ -394,6 +394,59 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
         #endregion
 
         #region Postal code validation tests
+        /// <summary>
+        /// Tests the IsValidPostalCode validation method.
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidPostalCodeCorrect()
+        {
+            // Arrange
+            const string postalCode = "9201 AZ";
+            const bool expectedResult = true;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidPostalCode(postalCode);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
+
+        /// <summary>
+        /// Tests the IsValidPostalCode validation method. Passes if it says the name is invalid because it doesn't match the regex
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidPostalCodeIncorrect1()
+        {
+            // Arrange
+            const string postalCode = "9201 AZ.";
+            const bool expectedResult = false;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidPostalCode(postalCode);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
+
+        /// <summary>
+        /// Tests the IsValidPostalCode validation method. Passes if it says the name is invalid because it is null or empty
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidPostalCodeIncorrect2()
+        {
+            // Arrange
+            const string postalCode = "";
+            const bool expectedResult = false;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidPostalCode(postalCode);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
         #endregion
 
         #region Country validation tests
