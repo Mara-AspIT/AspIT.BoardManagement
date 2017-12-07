@@ -299,7 +299,7 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
         }
 
         /// <summary>
-        /// Tests the IsValidAddress validation method. Passes if it says the name is invalid because it doesn't match the regex
+        /// Tests the IsValidAddress validation method. Passes if it says the address is invalid because it doesn't match the regex
         /// </summary>
         [TestMethod]
         public void TestIsValidAddressIncorrect1()
@@ -337,7 +337,7 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
         }
 
         /// <summary>
-        /// Tests the IsValidCity validation method. Passes if it says the name is invalid because it doesn't match the regex
+        /// Tests the IsValidCity validation method. Passes if it says the city is invalid because it doesn't match the regex
         /// </summary>
         [TestMethod]
         public void TestIsValidCityIncorrect1()
@@ -431,7 +431,7 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
         }
 
         /// <summary>
-        /// Tests the IsValidPostalCode validation method. Passes if it says the name is invalid because it doesn't match the regex
+        /// Tests the IsValidPostalCode validation method. Passes if it says the postal code is invalid because it doesn't match the regex
         /// </summary>
         [TestMethod]
         public void TestIsValidPostalCodeIncorrect1()
@@ -449,7 +449,7 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
         }
 
         /// <summary>
-        /// Tests the IsValidPostalCode validation method. Passes if it says the name is invalid because it is null or empty
+        /// Tests the IsValidPostalCode validation method. Passes if it says the postal code is invalid because it is null or empty
         /// </summary>
         [TestMethod]
         public void TestIsValidPostalCodeIncorrect2()
@@ -468,6 +468,59 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
         #endregion
 
         #region Country validation tests
+        /// <summary>
+        /// Tests the IsValidCountry validation method.
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidCountryCorrect()
+        {
+            // Arrange
+            const string country = "Lounge Country";
+            const bool expectedResult = true;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidCountry(country);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
+
+        /// <summary>
+        /// Tests the IsValidCountry validation method. Passes if it says the country is invalid because it doesn't match the regex
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidCountryIncorrect1()
+        {
+            // Arrange
+            const string country = "Lounge Country 232323";
+            const bool expectedResult = false;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidCountry(country);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
+
+        /// <summary>
+        /// Tests the IsValidCountry validation method. Passes if it says the country is invalid because it is null or empty
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidCountryIncorrect2()
+        {
+            // Arrange
+            const string country = "";
+            const bool expectedResult = false;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidCountry(country);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
         #endregion
     }
 }
