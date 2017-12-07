@@ -144,7 +144,7 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
 
             // Act
             p1 = new Person(firstName, lastName, birthDate, address, city, region, postalCode, country, contactInfo);
-            p2 = new Person(1, firstName, lastName, birthDate, address, city, region, postalCode, country, contactInfo, userCredentials);
+            p2 = new Person(firstName, lastName, birthDate, address, city, region, postalCode, country, contactInfo, userCredentials);
 
             // Assert
             Assert.AreNotEqual(p1, p2);
