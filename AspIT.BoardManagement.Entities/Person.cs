@@ -482,7 +482,15 @@ namespace AspIT.BoardManagement.Entities
         /// The current state of this <see cref="Person"/> object as a <see cref="string"/>.
         /// </summary>
         /// <returns>A <see cref="string"/> that shows the current state of this <see cref="Person"/> object.</returns>
-        public override string ToString() => $"{Id}: {FirstName}, {LastName}, {BirthDate.ToShortDateString()}, {Address}, {City}, {Region}, {PostalCode}, {Country}, {ContactInfo.Email}, {ContactInfo.PhoneNumber}, {UserCredentials.Username}, {UserCredentials.Password}";
+        public override string ToString()
+        {
+            if(UserCredentials == null)
+            {
+                return $"{Id}: {FirstName}, {LastName}, {BirthDate.ToShortDateString()}, {Address}, {City}, {Region}, {PostalCode}, {Country}, {ContactInfo.Email}, {ContactInfo.PhoneNumber}";
+            }
+
+            return $"{Id}: {FirstName}, {LastName}, {BirthDate.ToShortDateString()}, {Address}, {City}, {Region}, {PostalCode}, {Country}, {ContactInfo.Email}, {ContactInfo.PhoneNumber}, {UserCredentials.Username}, {UserCredentials.Password}";
+        }
         #endregion
     }
 }
