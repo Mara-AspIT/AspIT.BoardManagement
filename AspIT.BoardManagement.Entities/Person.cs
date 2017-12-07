@@ -173,18 +173,21 @@ namespace AspIT.BoardManagement.Entities
         /// <summary>
         /// Gets or sets the birthdate
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown when the value is invalid.</exception>
         public DateTime BirthDate
         {
             get => birthDate;
             set
             {
-                birthDate = value;
-                // TODO: Validate, so you can't set birthdate to something higher than todays date
-                /*
-                if()
+                (bool isValid, string errorMessage) = IsValidBirthdate(value);
+                if(isValid)
                 {
-                    throw new ArgumentException();
-                }*/
+                    birthDate = value;
+                }
+                else
+                {
+                    throw new ArgumentException(errorMessage);
+                }
             }
         }
 
@@ -348,6 +351,43 @@ namespace AspIT.BoardManagement.Entities
             if (name.FirstOrDefault(char.IsNumber) != char.MinValue)
             {
                 return (false, "Numbers is not allowed");
+            }
+
+            return (true, string.Empty);
+        }
+
+        /// <summary>
+        /// Checks the specified birthdate to see if it is valid.
+        /// </summary>
+        /// <param name="name">The birthdate you want to validate</param>
+        /// <returns>A <see cref="bool"/> telling whether it is valid or not, and a string error message</returns>
+        public static (bool, string) IsValidBirthdate(DateTime birthdate)
+        {
+            if(birthdate == null)
+            {
+                return (false, "Birthdate can't be empty.");
+            }
+
+            DateTime nowDate = DateTime.Now;
+            if(birthdate.Year > nowDate.Year)
+            {
+                return (false, "Birthdate year can't be greater than todays year.");
+            }
+
+            if(birthdate.Year == nowDate.Year)
+            {
+                if(birthdate.Month > nowDate.Month)
+                {
+                    return (false, "Birthdate month can't be greater than todays month.");
+                }
+
+                if(birthdate.Month == birthdate.Month)
+                {
+                    if(birthdate.Day > nowDate.Day)
+                    {
+                        return (false, "Birthdate day can't be greater than todays day.");
+                    }
+                }
             }
 
             return (true, string.Empty);
