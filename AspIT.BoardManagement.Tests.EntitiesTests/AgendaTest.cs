@@ -61,5 +61,39 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
             Assert.ThrowsException<ArgumentNullException>(() => new AgendaPoint(header, context1));
             Assert.ThrowsException<ArgumentException>(() => new AgendaPoint(header, context2));
         }
+
+        [TestMethod]
+        public void ReturnFalseIfNoUsingEqualsAndNotAAgenda()
+        {
+            //Arrange
+            ContactInfo contact;
+            Agenda agenda;
+            AgendaPoint agendaPoint;
+
+            //Act
+            agendaPoint = new AgendaPoint("fff"); 
+            contact = new ContactInfo("notReall@real.dk", "99999999");
+            agenda = new Agenda("kdkdkd",agendaPoint);
+            bool result = agenda.Equals(agendaPoint);
+            //Assert
+            Assert.AreEqual(result, false);
+          
+        }
+
+        [TestMethod]
+        public void ReturnFalseIfObjectIsNotEqualAgendPoint()
+        {
+            //Arrange
+            AgendaPoint agendaPoint;
+            ContactInfo contact;
+
+            //Act
+            agendaPoint = new AgendaPoint("Titleff");
+            contact = new ContactInfo("notReall@real.dk", "99999999");
+            bool result = agendaPoint.Equals(contact);
+            //Assert
+            Assert.AreEqual(false,result);
+           
+        }
     }
 }
