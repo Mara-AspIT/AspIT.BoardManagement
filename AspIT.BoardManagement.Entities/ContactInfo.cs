@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 namespace AspIT.BoardManagement.Entities
 {
     /// <summary>Represents contact information. Can be inherited.</summary>
-    public class ContactInfo: IEquatable<ContactInfo>
+    public class ContactInfo: IPersistable , IEquatable<ContactInfo>
     {
         #region Fields
         /// <summary>The unique id.</summary>

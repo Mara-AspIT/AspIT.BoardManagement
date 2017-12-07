@@ -10,15 +10,24 @@ namespace AspIT.BoardManagement.Entities
     public class BoardMeeting : IPersistable, IEquatable<BoardMeeting>
     {
         #region fields
-        private readonly int id;
-        private List<BoardMember> members;
-        private Agenda agenda;
+        /// <summary>
+        /// a unique id
+        /// </summary>
+        protected readonly int id;
+        /// <summary>
+        /// a list of members min. 4
+        /// </summary>
+        protected List<BoardMember> members;
+        /// <summary>
+        /// an agenda
+        /// </summary>
+        protected Agenda agenda;
         #endregion
 
 
         #region constructors
         /// <summary>
-        /// ment take create a boardmeeting
+        /// create a boardmeeting
         /// </summary>
         /// <param name="agenda"></param>
         public BoardMeeting(Agenda agenda)
@@ -26,7 +35,7 @@ namespace AspIT.BoardManagement.Entities
             Agenda = agenda;
         }
         /// <summary>
-        /// ment to create a boardmeeting forexample for the database, with id
+        /// create a boardmeeting with id
         /// </summary>
         /// <param name="id"></param>
         /// <param name="agenda"></param>
@@ -38,17 +47,23 @@ namespace AspIT.BoardManagement.Entities
 
 
         #region Props
-        public int Id
+        public virtual int Id
         {
             get { return id; }
         }
-        public Agenda Agenda
+        /// <summary>
+        /// takes an agenda
+        /// </summary>
+        public virtual Agenda Agenda
         {
             get { return agenda; }
             set { agenda = value; }
         }
-
-        public List<BoardMember> Members
+        /// <summary>
+        /// takes a list of members
+        /// <exception cref="ArgumentException"/>
+        /// </summary>
+        public virtual List<BoardMember> Members
         {
             get { return members; }
             set
@@ -68,24 +83,25 @@ namespace AspIT.BoardManagement.Entities
 
 
         #region Methods
-        /// <summary>
-        /// Check if it is equal
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <summary>Determines whether two instances are equal. Equallity is determined by the <see cref="id"/> and the object references. Inmplements <see cref="IEquatable{T}"/>.</summary>
+        /// <param name="other">The instance of <see cref="ContactInfo"/> to compare with this instance, for equallity.</param>
+        /// <returns>A <see cref="Bool"/> indicating whether the provided instance is equal to this instance.</returns>
         public virtual bool Equals(BoardMeeting other)
-                    => other.id == id && ReferenceEquals(this, other);
-        /// <summary>
-        /// overridden equals
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        {
+            if(other == null)
+            {
+                return false;
+            }
+            return other.id == id && ReferenceEquals(this, other);
+        }
+        /// <summary>Determines whether two instances are equal. Equallity is determined by the <see cref="id"/> and the object references.</summary>
+        /// <param name="other">The instance of <see cref="Object"/> to compare with this instance, for equallity.</param>
+        /// <returns>A <see cref="Bool"/> indicating whether the provided instance is equal to this instance.</returns>
         public override bool Equals(object obj)
            => Equals(obj as BoardMeeting);
-        /// <summary>
-        /// hashcode
-        /// </summary>
-        /// <returns></returns>
+
+        /// <summary>Gets the hash code for this object. Overrides <see cref="Object.GetHashCode"/>.</summary>
+        /// <returns>The calculated hash code.</returns>
         public override int GetHashCode()
         {
             int hashCode = -796035300;
@@ -103,6 +119,9 @@ namespace AspIT.BoardManagement.Entities
         public override string ToString()
     => $"{id}: {Agenda.ToString()}, {Members.ToString()}";
 
+        /// <summary>Validates the username.</summary>
+        /// <param name="members">The username to validate.</param>
+        /// <returns>A <see cref="Boolean"/> indicating whether the validation succeeds or not, and a <see cref="String"/> containg an error message (empty if the validation succeeds).</returns>
         public static (bool, string) IsValidMember(List<BoardMember> members)
         {
             if (members.Count >= 3)
