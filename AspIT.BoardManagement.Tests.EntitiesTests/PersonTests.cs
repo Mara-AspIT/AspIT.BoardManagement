@@ -356,6 +356,41 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
         #endregion
 
         #region Region validation tests
+        /// <summary>
+        /// Tests the IsValidRegion validation method.
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidRegionCorrect()
+        {
+            // Arrange
+            const string region = "Region syd";
+            const bool expectedResult = true;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidRegion(region);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
+
+        /// <summary>
+        /// Tests the IsValidCity validation method. Passes if it says the name is invalid because it doesn't match the regex
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidRegionIncorrect1()
+        {
+            // Arrange
+            const string region = "Region syd 2";
+            const bool expectedResult = false;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidRegion(region);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
         #endregion
 
         #region Postal code validation tests
