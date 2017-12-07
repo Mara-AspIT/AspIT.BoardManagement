@@ -522,5 +522,71 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
             Assert.AreEqual(expectedResult, result.isValid);
         }
         #endregion
+
+        #region Firstname tests
+        /// <summary>
+        /// Tests the firstname setter.
+        /// </summary>
+        [TestMethod]
+        public void TestFirstnameSetterCorrect()
+        {
+            // Arrange
+            const string expected = "Jason";
+            const string firstName = "Jeff";
+            const string lastName = "Harrison";
+            DateTime birthdate = DateTime.Now;
+            const string address = "North street 34";
+            const string city = "Blankton city";
+            const string region = "North region";
+            const string postalCode = "3991";
+            const string country = "Saint Country";
+            ContactInfo contactInfo = new ContactInfo("Krrep@rle.dl", "2929319");
+            Person person;
+
+            // Act
+            person = new Person(firstName, lastName, birthdate, address, city, region, postalCode, country, contactInfo)
+            {
+                FirstName = expected
+            };
+
+            // Assert
+            Assert.AreEqual(expected, person.FirstName);
+        }
+
+        /// <summary>
+        /// Tests the firstname setter. Passes if <see cref="ArgumentException"/> is thrown.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestFirstnameSetterIncorrect1()
+        {
+            // Arrange
+            const string firstName = "Jeff";
+            const string lastName = "Harrison";
+            DateTime birthdate = DateTime.Now;
+            const string address = "North street 34";
+            const string city = "Blankton city";
+            const string region = "North region";
+            const string postalCode = "3991";
+            const string country = "Saint Country";
+            ContactInfo contactInfo = new ContactInfo("Krrep@rle.dl", "2929319");
+            Person person;
+
+            // Act
+            person = new Person(firstName, lastName, birthdate, address, city, region, postalCode, country, contactInfo)
+            {
+                FirstName = "Jason 29"
+            };
+        }
+        #endregion
+
+        #region Lastname tests
+        #endregion
+
+        #region Birthday tests
+        #endregion
+
+        #region Firstname tests
+        #endregion
     }
 }
