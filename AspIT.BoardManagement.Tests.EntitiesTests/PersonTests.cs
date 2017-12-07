@@ -149,7 +149,9 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
             // Assert
             Assert.AreNotEqual(p1, p2);
         }
+        #endregion
 
+        #region Validation tests
         /// <summary>
         /// Tests the IsValidName method. Passes if an <see cref="ArgumentException"/> is thrown.
         /// <para>Reason for using the firstname and lastname for testing, is because they call the IsValidName method for validation</para>
