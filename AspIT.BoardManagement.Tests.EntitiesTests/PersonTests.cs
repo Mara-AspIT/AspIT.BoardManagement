@@ -391,6 +391,24 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
             // Assert
             Assert.AreEqual(expectedResult, result.isValid);
         }
+
+        /// <summary>
+        /// Tests the IsValidRegion validation method. Passes if it says the name is invalid because it is null or empty
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidRegionIncorrect2()
+        {
+            // Arrange
+            const string region = "";
+            const bool expectedResult = false;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidRegion(region);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
         #endregion
 
         #region Postal code validation tests
