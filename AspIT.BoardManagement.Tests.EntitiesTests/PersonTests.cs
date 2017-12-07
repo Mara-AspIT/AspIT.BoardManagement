@@ -299,13 +299,11 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
         }
 
         /// <summary>
-        /// Tests the IsValidName validation method. Passes if it says the name is invalid because it doesn't match the regex
+        /// Tests the IsValidAddress validation method. Passes if it says the name is invalid because it doesn't match the regex
         /// </summary>
         [TestMethod]
-        public void TestIsValidAddresseIncorrect1()
+        public void TestIsValidAddressIncorrect1()
         {
-            /* Regex \sA-Za-z0-9-. */
-
             // Arrange
             const string address = "$aint street - 29.";
             const bool expectedResult = false;
@@ -319,5 +317,51 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
         }
         #endregion
 
+        #region City validation tests
+        /// <summary>
+        /// Tests the IsValidCity validation method.
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidCityCorrect()
+        {
+            // Arrange
+            const string city = "Drys Byen";
+            const bool expectedResult = true;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidCity(city);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
+
+        /// <summary>
+        /// Tests the IsValidCity validation method. Passes if it says the name is invalid because it doesn't match the regex
+        /// </summary>
+        [TestMethod]
+        public void TestIsValidCityIncorrect1()
+        {
+            // Arrange
+            const string city = "Drys Byen 2";
+            const bool expectedResult = false;
+            (bool isValid, string errorMessage) result;
+
+            // Act
+            result = Person.IsValidCity(city);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result.isValid);
+        }
+        #endregion
+
+        #region Region validation tests
+        #endregion
+
+        #region Postal code validation tests
+        #endregion
+
+        #region Country validation tests
+        #endregion
     }
 }
