@@ -27,13 +27,18 @@ namespace AspIT.BoardManagement.Entities
 
         #region Methods
         /// <summary>
-        /// Casts a vote.
+        /// Casts a vote if the agenda point is open.
         /// </summary>
         /// <param name="vote">The vote to cast.</param>
         /// <param name="votableAgendaPoint">The agenda point to cast the vote to.</param>
-        public void CastVote(Vote vote, VotableAgendaPoint votableAgendaPoint)
+        /// <returns>A <see cref="bool"/> that indicates whether the vote failed or not. Returns also an error message that tells why.</returns>
+        public (bool, string) CastVote(Vote vote, VotableAgendaPoint votableAgendaPoint)
         {
+            // Give an error message if the Agenda Point is closed for voting.
+            // Error msg: Can't cast a vote on a closed agenda point.
 
+            // TODO: The current return result is just a placeholder. Make a proper return result.
+            return (false, string.Empty);
         }
 
         /// <summary>
@@ -45,7 +50,17 @@ namespace AspIT.BoardManagement.Entities
         {
             if(ReferenceEquals(null, other)) return false;
             if(ReferenceEquals(this, other)) return true;
-            return Id == other.Id;
+            return Id == other.Id
+                && other.FirstName == FirstName
+                && other.LastName == LastName
+                && other.BirthDate == BirthDate
+                && other.Address == Address
+                && other.City == City
+                && other.Region == Region
+                && other.PostalCode == PostalCode
+                && other.Country == Country
+                && other.ContactInfo == ContactInfo
+                && other.UserCredentials == UserCredentials;
         }
 
         /// <summary>
