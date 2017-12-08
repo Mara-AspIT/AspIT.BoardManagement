@@ -363,7 +363,7 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A <see cref="bool"/> telling whether it is valid or not, and a string error message</returns>
         public static (bool, string) IsValidBirthdate(DateTime birthdate)
         {
-            if(birthdate == null)
+            if(birthdate == default(DateTime))
             {
                 return (false, "Birthdate can't be empty.");
             }
