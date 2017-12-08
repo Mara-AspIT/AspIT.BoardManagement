@@ -32,13 +32,17 @@ namespace AspIT.BoardManagement.Entities
         /// <param name="vote">The vote to cast.</param>
         /// <param name="votableAgendaPoint">The agenda point to cast the vote to.</param>
         /// <returns>A <see cref="bool"/> that indicates whether the vote failed or not. Returns also an error message that tells why.</returns>
-        public (bool, string) CastVote(Vote vote, VotableAgendaPoint votableAgendaPoint)
+        public void CastVote(Vote vote, VotableAgendaPoint votableAgendaPoint)
         {
-            // Give an error message if the Agenda Point is closed for voting.
-            // Error msg: Can't cast a vote on a closed agenda point.
+            if(vote == null)
+            {
+                throw new ArgumentNullException("vote");
+            }
 
-            // TODO: The current return result is just a placeholder. Make a proper return result.
-            return (false, string.Empty);
+            if(votableAgendaPoint == null)
+            {
+                throw new ArgumentNullException("votableAgendaPoint");
+            }
         }
 
         /// <summary>
@@ -48,7 +52,6 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A <see cref="bool"/> that tells if both <see cref="BoardMember"/> instances are equal, and have the same unique ID.</returns>
         public bool Equals(BoardMember other)
         {
-            if(ReferenceEquals(null, other)) return false;
             if(ReferenceEquals(this, other)) return true;
             return Id == other.Id
                 && other.FirstName == FirstName
@@ -70,10 +73,7 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A <see cref="bool"/> that tells if both <see cref="BoardMember"/> instances are equal, and are of same type.</returns>
         public override bool Equals(object obj)
         {
-            if(ReferenceEquals(null, obj)) return false;
-            if(ReferenceEquals(this, obj)) return true;
-            if(obj.GetType() != typeof(BoardMember)) return false;
-            return Equals((BoardMember)obj);
+            return Equals(obj as BoardMember);
         }
 
         /// <summary>
