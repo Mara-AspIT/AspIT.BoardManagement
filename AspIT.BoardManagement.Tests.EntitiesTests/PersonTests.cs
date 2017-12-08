@@ -723,6 +723,87 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
         #endregion
 
         #region Address setter tests
+        /// <summary>
+        /// Tests the address setter.
+        /// </summary>
+        [TestMethod]
+        public void TestAddressSetterCorrect()
+        {
+            // Arrange
+            string expected = "Sanctum street - 19.";
+
+            const string firstName = "Jeff";
+            const string lastName = "Camel";
+            DateTime birthdate = DateTime.Now;
+            const string address = "North street 34";
+            const string city = "Blankton city";
+            const string region = "North region";
+            const string postalCode = "3991";
+            const string country = "Saint Country";
+            ContactInfo contactInfo = new ContactInfo("Krrep@rle.dl", "2929319");
+            Person person;
+
+            // Act
+            person = new Person(firstName, lastName, birthdate, address, city, region, postalCode, country, contactInfo)
+            {
+                Address = expected
+            };
+
+            // Assert
+            Assert.AreEqual(expected, person.Address);
+        }
+
+        /// <summary>
+        /// Tests the address setter. Passes if <see cref="ArgumentException"/> is thrown.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddressSetterIncorrect1()
+        {
+            // Arrange
+            const string firstName = "Jeff";
+            const string lastName = "Camel";
+            DateTime birthdate = DateTime.Now;
+            const string address = "North street 34";
+            const string city = "Blankton city";
+            const string region = "North region";
+            const string postalCode = "3991";
+            const string country = "Saint Country";
+            ContactInfo contactInfo = new ContactInfo("Krrep@rle.dl", "2929319");
+            Person person;
+
+            // Act
+            person = new Person(firstName, lastName, birthdate, address, city, region, postalCode, country, contactInfo)
+            {
+                Address = "Catanovã 23 & Saint 23"
+            };
+        }
+
+        /// <summary>
+        /// Tests the address setter. Passes if <see cref="ArgumentException"/> is thrown.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddressSetterIncorrect2()
+        {
+            // Arrange
+            const string firstName = "Jeff";
+            const string lastName = "Camel";
+            DateTime birthdate = DateTime.Now;
+            const string address = "North street 34";
+            const string city = "Blankton city";
+            const string region = "North region";
+            const string postalCode = "3991";
+            const string country = "Saint Country";
+            ContactInfo contactInfo = new ContactInfo("Krrep@rle.dl", "2929319");
+            Person person;
+
+            // Act
+            person = new Person(firstName, lastName, birthdate, address, city, region, postalCode, country, contactInfo)
+            {
+                Address = string.Empty
+            };
+        }
         #endregion
 
         #region City setter tests
