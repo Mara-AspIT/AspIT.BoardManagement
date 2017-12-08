@@ -691,7 +691,33 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
             // Act
             person = new Person(firstName, lastName, birthdate, address, city, region, postalCode, country, contactInfo)
             {
-                BirthDate = new DateTime(2100, 2, 3)
+                BirthDate = DateTime.Now.AddDays(1)
+            };
+        }
+
+        /// <summary>
+        /// Tests the birthdate setter. Passes if <see cref="ArgumentException"/> is thrown.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestBirthdaySetterIncorrect2()
+        {
+            // Arrange
+            const string firstName = "Jeff";
+            const string lastName = "Camel";
+            DateTime birthdate = DateTime.Now;
+            const string address = "North street 34";
+            const string city = "Blankton city";
+            const string region = "North region";
+            const string postalCode = "3991";
+            const string country = "Saint Country";
+            ContactInfo contactInfo = new ContactInfo("Krrep@rle.dl", "2929319");
+            Person person;
+
+            // Act
+            person = new Person(firstName, lastName, birthdate, address, city, region, postalCode, country, contactInfo)
+            {
+                BirthDate = default(DateTime)
             };
         }
         #endregion
