@@ -60,7 +60,6 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A <see cref="bool"/> that tells if both <see cref="Chairman"/> instances are equal, and have the same unique ID.</returns>
         public bool Equals(Chairman other)
         {
-            if(ReferenceEquals(null, other)) return false;
             if(ReferenceEquals(this, other)) return true;
             return Id == other.Id
                 && other.FirstName == FirstName
@@ -82,10 +81,7 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A <see cref="bool"/> that tells if both <see cref="Chairman"/> instances are equal, and are of same type.</returns>
         public override bool Equals(object obj)
         {
-            if(ReferenceEquals(null, obj)) return false;
-            if(ReferenceEquals(this, obj)) return true;
-            if(obj.GetType() != typeof(Chairman)) return false;
-            return Equals((Chairman)obj);
+            return Equals(obj as Chairman);
         }
 
         /// <summary>
