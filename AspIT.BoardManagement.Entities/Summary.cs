@@ -1,4 +1,10 @@
-﻿using System;
+﻿/****************************************************************************************************
+*  Author: Mikkel Højer Jensen (mikk4388@edu.campusvejle.dk), github: https://github.com/MikkelHoier*
+*  Solution: .NET version: 4.7.1, C# version: 7.1                                                   *
+*  Visual Studio version: Visual Studio Enterprise 2017, version 15.4.5                             *
+*  Repository: https://github.com/Mara-AspIT/AspIT.BoardManagement                                  *
+*****************************************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +22,8 @@ namespace AspIT.BoardManagement.Entities
 		protected DateTime lastEdit;
 		/// <summary>The date and time for the creation of the summary.</summary>
 		protected DateTime creationDate;
+		/// <summary>The unique id</summary>
+		protected int id;
 		#endregion
 
 
@@ -73,17 +81,21 @@ namespace AspIT.BoardManagement.Entities
 		#region Overrides
 		public override string ToString()
 		{
-			return base.ToString();
+			return $"{creationDate}";
 		}
+
+
+		public override bool Equals(object obj)
+			=> Equals(obj as Summary);
 
 		public override int GetHashCode()
 		{
-			return base.GetHashCode();
-		}
-
-		public override bool Equals(object obj)
-		{
-			return base.Equals(obj);
+			var hashCode = -1541159169;
+			hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(content);
+			hashCode = hashCode * -1521134295 + lastEdit.GetHashCode();
+			hashCode = hashCode * -1521134295 + creationDate.GetHashCode();
+			hashCode = hashCode * -1521134295 + id.GetHashCode();
+			return hashCode;
 		}
 		#endregion
 	}
