@@ -53,17 +53,7 @@ namespace AspIT.BoardManagement.Entities
         public bool Equals(BoardMember other)
         {
             if(ReferenceEquals(this, other)) return true;
-            return Id == other.Id
-                && other.FirstName == FirstName
-                && other.LastName == LastName
-                && other.BirthDate == BirthDate
-                && other.Address == Address
-                && other.City == City
-                && other.Region == Region
-                && other.PostalCode == PostalCode
-                && other.Country == Country
-                && other.ContactInfo == ContactInfo
-                && other.UserCredentials == UserCredentials;
+            return Id == other.Id;
         }
 
         /// <summary>
