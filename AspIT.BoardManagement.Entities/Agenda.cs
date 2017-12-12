@@ -33,13 +33,24 @@ namespace AspIT.BoardManagement.Entities
 
 
         #region Constructors
+
+        /// <summary>
+        /// Intializes a new instance of the Agenda class
+        /// </summary>
+        /// <param name="title">The tile of the Agenda</param>
+        /// <param name="first">The first point on the agenda</param>
         public Agenda(string title, AgendaPoint first)
         {
             agendaPoints.Add(first);
             currentAgendaPoint = first;
             Title = title;
         }
-
+        /// <summary>
+        /// Intializes a new instance of the Agenda class
+        /// </summary>
+        /// <param name="id">The id</param>
+        /// <param name="title">The tile of the Agenda</param>
+        /// <param name="first">The first point on the agenda</param>
         public Agenda(int id, string title, AgendaPoint first) : this(title,first)
         {
             this.id = id;
@@ -49,8 +60,15 @@ namespace AspIT.BoardManagement.Entities
 
         #region Properties
 
+        /// <summary>
+        /// Gets the id. Can be overriden
+        /// </summary>
         public virtual int Id => id;
 
+
+        /// <summary>
+        /// Gets or sets the title. Can be overridden.
+        /// </summary>
         public virtual string Title
         {
             get => title;
@@ -67,6 +85,9 @@ namespace AspIT.BoardManagement.Entities
             }
         }
 
+        /// <summary>
+        /// Gets the currenAgendPoint. Can be overriden
+        /// </summary>
         public virtual AgendaPoint CurrentAgendaPoint
         {
             get => currentAgendaPoint;
@@ -76,10 +97,15 @@ namespace AspIT.BoardManagement.Entities
         #region Methods
 
         /// <summary>Determines whether two instances are equal. Equallity is determined by the <see cref="id"/> and the object references. Inmplements <see cref="IEquatable{T}"/>.</summary>
-        /// <param name="other">The instance of <see cref="ContactInfo"/> to compare with this instance, for equallity.</param>
+        /// <param name="other">The instance of <see cref="Agenda"/> to compare with this instance, for equallity.</param>
         /// <returns>A <see cref="Bool"/> indicating whether the provided instance is equal to this instance.</returns>
         public virtual bool Equals(Agenda other)
-        => other.id == id && ReferenceEquals(this, other);
+        {
+            if (other == null)
+                return false;
+            return other.id == id && ReferenceEquals(this, other);
+        }
+
 
         /// <summary>Determines whether two instances are equal. Equallity is determined by the <see cref="id"/> and the object references.</summary>
         /// <param name="other">The instance of <see cref="Object"/> to compare with this instance, for equallity.</param>

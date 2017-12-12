@@ -52,6 +52,8 @@
     <Compile Include="ContactInfoTests.cs" />
     <Compile Include="PersonTests.cs" />
     <Compile Include="AgendaTest.cs" />
+    <Compile Include="BoardMemberTests.cs" />
+    <Compile Include="ChairmanTests.cs" />
     <Compile Include="UserCredentialsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SummaryTest.cs" />

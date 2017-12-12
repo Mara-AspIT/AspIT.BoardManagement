@@ -173,18 +173,21 @@ namespace AspIT.BoardManagement.Entities
         /// <summary>
         /// Gets or sets the birthdate
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown when the value is invalid.</exception>
         public DateTime BirthDate
         {
             get => birthDate;
             set
             {
-                birthDate = value;
-                // TODO: Validate, so you can't set birthdate to something higher than todays date
-                /*
-                if()
+                (bool isValid, string errorMessage) = IsValidBirthdate(value);
+                if(isValid)
                 {
-                    throw new ArgumentException();
-                }*/
+                    birthDate = value;
+                }
+                else
+                {
+                    throw new ArgumentException(errorMessage);
+                }
             }
         }
 
@@ -354,6 +357,43 @@ namespace AspIT.BoardManagement.Entities
         }
 
         /// <summary>
+        /// Checks the specified birthdate to see if it is valid.
+        /// </summary>
+        /// <param name="name">The birthdate you want to validate</param>
+        /// <returns>A <see cref="bool"/> telling whether it is valid or not, and a string error message</returns>
+        public static (bool, string) IsValidBirthdate(DateTime birthdate)
+        {
+            if(birthdate == default(DateTime))
+            {
+                return (false, "Birthdate can't be empty.");
+            }
+
+            DateTime nowDate = DateTime.Now;
+            if(birthdate.Year > nowDate.Year)
+            {
+                return (false, "Birthdate year can't be greater than todays year.");
+            }
+
+            if(birthdate.Year == nowDate.Year)
+            {
+                if(birthdate.Month > nowDate.Month)
+                {
+                    return (false, "Birthdate month can't be greater than todays month.");
+                }
+
+                if(birthdate.Month == birthdate.Month)
+                {
+                    if(birthdate.Day > nowDate.Day)
+                    {
+                        return (false, "Birthdate day can't be greater than todays day.");
+                    }
+                }
+            }
+
+            return (true, string.Empty);
+        }
+
+        /// <summary>
         /// Checks the specified address to see if it is valid.
         /// </summary>
         /// <param name="address">The address you want to validate</param>
@@ -398,7 +438,7 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A boolean telling whether it is valid or not, and a string error message</returns>
         public static (bool, string) IsValidRegion(string region)
         {
-            if (region != String.Empty && !Regex.IsMatch(region, @"^[ A-Za-z]+$"))
+            if (region == String.Empty || !Regex.IsMatch(region, @"^[ A-Za-z]+$"))
             {
                 return (false, "Region may only contain letters and spaces");
             }
@@ -451,9 +491,18 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A <see cref="bool"/> that tells if both <see cref="Person"/> instances are equal, and have the same unique ID.</returns>
         public bool Equals(Person other)
         {
-            if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Id == other.Id;
+            return Id == other.Id
+                && other.FirstName == FirstName
+                && other.LastName == LastName
+                && other.BirthDate == BirthDate
+                && other.Address == Address
+                && other.City == City
+                && other.Region == Region
+                && other.PostalCode == PostalCode
+                && other.Country == Country
+                && other.ContactInfo == ContactInfo
+                && other.UserCredentials == UserCredentials;
         }
 
         /// <summary>
@@ -463,10 +512,7 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A <see cref="bool"/> that tells if both <see cref="Person"/> instances are equal, and are of same type.</returns>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof(Person)) return false;
-            return Equals((Person)obj);
+            return Equals(obj as Person);
         }
 
         /// <summary>
@@ -475,14 +521,34 @@ namespace AspIT.BoardManagement.Entities
         /// <returns>A calculated hashcode.</returns>
         public override int GetHashCode()
         {
-            return Id.GetHashCode();
+            const int prime = 397;
+            int hash = Id;
+            hash = (hash * prime) ^ (FirstName != null ? FirstName.GetHashCode() : 0);
+            hash = (hash * prime) ^ (LastName != null ? LastName.GetHashCode() : 0);
+            hash = (hash * prime) ^ (BirthDate != null ? BirthDate.GetHashCode() : 0);
+            hash = (hash * prime) ^ (Address != null ? Address.GetHashCode() : 0);
+            hash = (hash * prime) ^ (City != null ? City.GetHashCode() : 0);
+            hash = (hash * prime) ^ (Region != null ? Region.GetHashCode() : 0);
+            hash = (hash * prime) ^ (PostalCode != null ? PostalCode.GetHashCode() : 0);
+            hash = (hash * prime) ^ (Country != null ? Country.GetHashCode() : 0);
+            hash = (hash * prime) ^ (ContactInfo != null ? ContactInfo.GetHashCode() : 0);
+            hash = (hash * prime) ^ (UserCredentials != null ? UserCredentials.GetHashCode() : 0);
+            return hash;
         }
 
         /// <summary>
         /// The current state of this <see cref="Person"/> object as a <see cref="string"/>.
         /// </summary>
         /// <returns>A <see cref="string"/> that shows the current state of this <see cref="Person"/> object.</returns>
-        public override string ToString() => $"{Id}: {FirstName}, {LastName}, {BirthDate.ToShortDateString()}, {Address}, {City}, {Region}, {PostalCode}, {Country}, {ContactInfo.Email}, {ContactInfo.PhoneNumber}, {UserCredentials.Username}, {UserCredentials.Password}";
+        public override string ToString()
+        {
+            if(UserCredentials == null)
+            {
+                return $"{Id}: {FirstName}, {LastName}, {BirthDate.ToShortDateString()}, {Address}, {City}, {Region}, {PostalCode}, {Country}, {ContactInfo.Email}, {ContactInfo.PhoneNumber}";
+            }
+
+            return $"{Id}: {FirstName}, {LastName}, {BirthDate.ToShortDateString()}, {Address}, {City}, {Region}, {PostalCode}, {Country}, {ContactInfo.Email}, {ContactInfo.PhoneNumber}, {UserCredentials.Username}, {UserCredentials.Password}";
+        }
         #endregion
     }
 }

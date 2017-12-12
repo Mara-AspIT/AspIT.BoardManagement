@@ -89,7 +89,11 @@ namespace AspIT.BoardManagement.Entities
         /// <param name="other">The instance of <see cref="ContactInfo"/> to compare with this instance, for equallity.</param>
         /// <returns>A <see cref="Bool"/> indicating whether the provided instance is equal to this instance.</returns>
         public virtual bool Equals(AgendaPoint other)
-            => other.id == id && ReferenceEquals(this, other);
+        {
+            if (other == null)
+                return false;
+            return other.id == id && ReferenceEquals(this, other);
+        }
 
 
         /// <summary>Determines whether two instances are equal. Equallity is determined by the <see cref="id"/> and the object references.</summary>

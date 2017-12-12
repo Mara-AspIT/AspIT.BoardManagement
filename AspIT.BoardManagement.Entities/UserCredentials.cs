@@ -14,10 +14,11 @@ namespace AspIT.BoardManagement.Entities
     public class UserCredentials : IPersistable, IEquatable<UserCredentials>
     {
         #region Fields
-        private readonly int id;
-        private string username;
-        private string password;
+        protected readonly int id;
+        protected string username;
+        protected string password;
         #endregion
+
 
         #region Constructors
         /// <summary>
@@ -42,18 +43,19 @@ namespace AspIT.BoardManagement.Entities
         }
         #endregion
 
+
         #region Props
         /// <summary>
         /// The id for the database
         /// </summary>
-        public int Id
+        public virtual int Id
         {
             get { return id; }
         }
         /// <summary>
         /// the username for the user
         /// </summary>
-        public string Username
+        public virtual string Username
         {
             get { return username; }
             set
@@ -72,7 +74,7 @@ namespace AspIT.BoardManagement.Entities
         /// <summary>
         /// the password for the user
         /// </summary>
-        public string Password
+        public virtual string Password
         {
             get { return password; }
             set
@@ -90,18 +92,27 @@ namespace AspIT.BoardManagement.Entities
         }
         #endregion
 
+
         #region Methods
+        /// <summary>Determines whether two instances are equal. Equallity is determined by the <see cref="id"/> and the object references. Inmplements <see cref="IEquatable{T}"/>.</summary>
+        /// <param name="other">The instance of <see cref="ContactInfo"/> to compare with this instance, for equallity.</param>
+        /// <returns>A <see cref="Bool"/> indicating whether the provided instance is equal to this instance.</returns>
         public virtual bool Equals(UserCredentials other)
         {
-            if(other == null)
+            if (other == null)
             {
                 return false;
             }
             return other.id == id && ReferenceEquals(this, other);
         }
+        /// <summary>Determines whether two instances are equal. Equallity is determined by the <see cref="id"/> and the object references.</summary>
+        /// <param name="other">The instance of <see cref="Object"/> to compare with this instance, for equallity.</param>
+        /// <returns>A <see cref="Bool"/> indicating whether the provided instance is equal to this instance.</returns>
         public override bool Equals(object obj)
            => Equals(obj as UserCredentials);
 
+        /// <summary>Gets the hash code for this object. Overrides <see cref="Object.GetHashCode"/>.</summary>
+        /// <returns>The calculated hash code.</returns>
         public override int GetHashCode()
         {
             int hashCode = -796035300;
@@ -112,32 +123,42 @@ namespace AspIT.BoardManagement.Entities
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Password);
             return hashCode;
         }
+        /// <summary>
+        /// Get the overridden ToString for the object. giv you the username, password
+        /// </summary>
+        /// <returns>overridden ToString</returns>
         public override string ToString()
     => $"{id}: {Username}, {Password}";
 
-        public static (bool, string) IsValidUsername(string Username)
+        /// <summary>Validates the username.</summary>
+        /// <param name="username">The username to validate.</param>
+        /// <returns>A <see cref="Boolean"/> indicating whether the validation succeeds or not, and a <see cref="String"/> containg an error message (empty if the validation succeeds).</returns>
+        public static (bool, string) IsValidUsername(string username)
         {
-            if (string.IsNullOrEmpty(Username))
+            if (string.IsNullOrWhiteSpace(username))
             {
                 return (false, "username can't be null or empty");
             }
 
-            if (!Regex.IsMatch(Username, "^[ A-Za-z0-9]+$"))
+            if (!Regex.IsMatch(username, "^[ A-Za-z0-9]+$"))
             {
-                return (false, "username may only contain letters and spaces.");
+                return (false, "username may only contain letters, spaces and numbers.");
             }
             return (true, string.Empty);
         }
-        public static (bool, string) IsValidPassword(string Password)
+        /// <summary>Validates the password.</summary>
+        /// <param name="password">The password to validate.</param>
+        /// <returns>A <see cref="Boolean"/> indicating whether the validation succeeds or not, and a <see cref="String"/> containg an error message (empty if the validation succeeds).</returns>
+        public static (bool, string) IsValidPassword(string password)
         {
-            if (string.IsNullOrEmpty(Password))
+            if (string.IsNullOrWhiteSpace(password))
             {
                 return (false, "Password can't be null or empty");
             }
 
-            if (!Regex.IsMatch(Password, "^[ A-Za-z0-9]+$"))
+            if (!Regex.IsMatch(password, "^[ A-Za-z0-9]+$"))
             {
-                return (false, "Password may only contain letters and spaces.");
+                return (false, "Password may only contain letters, spaces and numbers.");
             }
             return (true, string.Empty);
         }
