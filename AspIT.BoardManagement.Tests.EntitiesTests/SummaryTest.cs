@@ -11,11 +11,12 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
 		public void TestMethod1()
 		{
 			//Arrange:
-			string s1 = "";
-			
+			Summary s = new Summary("123");			
+			string s1 = "123456";
 			//Act:
-
+			s.Append("456");
 			//Assert:
+			Assert.AreEqual(s1, s.Content);
 		}
 	}
 }
