@@ -115,5 +115,48 @@ namespace AspIT.BoardManagement.Tests.EntitiesTests
             Assert.AreNotEqual(bm1, bm2);
         }
         #endregion
+
+        #region CastVote method tests
+        /// <summary>
+        /// Passes if no exception is thrown, and goes through successfully.
+        /// </summary>
+        [TestMethod]
+        public void TestCastVotePass()
+        {
+            // Arrange
+            BoardMember boardMember = new BoardMember(new Person("Jason", "Smith", DateTime.Now, "Something", "Catastrophic", "South", "8320", "Dkwla", new ContactInfo("Tidle@tidle.com", "919292")));
+
+            // Act
+            boardMember.CastVote(new Vote(), new VotableAgendaPoint());
+        }
+
+        /// <summary>
+        /// Passes if the expected exception is thrown.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestCastVoteFailed1()
+        {
+            // Arrange
+            BoardMember boardMember = new BoardMember(new Person("Jason", "Smith", DateTime.Now, "Something", "Catastrophic", "South", "8320", "Dkwla", new ContactInfo("Tidle@tidle.com", "919292")));
+
+            // Act
+            boardMember.CastVote(null, new VotableAgendaPoint());
+        }
+
+        /// <summary>
+        /// Passes if the expected exception is thrown.
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestCastVoteFailed2()
+        {
+            // Arrange
+            BoardMember boardMember = new BoardMember(new Person("Jason", "Smith", DateTime.Now, "Something", "Catastrophic", "South", "8320", "Dkwla", new ContactInfo("Tidle@tidle.com", "919292")));
+
+            // Act
+            boardMember.CastVote(new Vote(), null);
+        }
+        #endregion
     }
 }
